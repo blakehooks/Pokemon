@@ -23,8 +23,9 @@ public class Player {
 		sprite.draw(x, y);
 	}
 	
-	public void move(float dX, float dY) {
-		sprite.draw(x + dX, y + dY);
+	public void move(double dX, double dY) {
+		x += dX;
+		y += dY;
 	}
 
 }
