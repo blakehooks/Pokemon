@@ -8,16 +8,17 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.gui.AbstractComponent;
-import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.TextField;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import player.Player;
 
 public class NewGame extends BasicGameState {
 	TextField nameInput;
 	Font font = new Font("Verdana", Font.BOLD, 32);
 	TrueTypeFont ttf = new TrueTypeFont(font, false);
+	Player player = Player.getPlayer();
 	boolean nameSet = false;
 	public NewGame() {
 		// TODO Auto-generated constructor stub
@@ -36,9 +37,11 @@ public class NewGame extends BasicGameState {
 		if (nameSet) {
 			String name = nameInput.getText();
 			nameInput.deactivate();
-			g.drawString("Your name is: " + name + "\nIs this the name you want?", 600, 500);
+			g.drawString("Your name is: " + name + "\nIs this the name you want? (Y/N)", 600, 500);
 			if (gc.getInput().isKeyPressed(Input.KEY_Y)) {
 				System.out.println("Name set to " + nameInput.getText());
+				player.setName(name);
+				sbg.enterState(2);
 			} else if (gc.getInput().isKeyPressed(Input.KEY_N)){
 				nameSet = false;
 				nameInput.setText("");
