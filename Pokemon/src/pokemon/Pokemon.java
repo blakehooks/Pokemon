@@ -23,8 +23,8 @@ public class Pokemon {
 		moves = new Move[4];
 		moves[0] = new Move("Tackle", 20, new Type("Normal"));
 		moves[1] = new Move("Quick Attack", 20, new Type("Normal"));
-		moves[2] = new Move(null, 0, null);
-		moves[3] = new Move(null, 0, null);
+		moves[2] = new Move("Punch", 0, new Type("Normal"));
+		moves[3] = new Move("Double Kick", 0, new Type("Fighting"));
 	}
 	
 	public Pokemon(String n, int x, int y, int hp) {
