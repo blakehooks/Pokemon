@@ -1,17 +1,19 @@
 package pokemon;
 
 public class Move {
-	String name;
-	int uses;
-	Type type;
+	private String name;
+	private int uses;
+	private int strength;
+	private Type type;
 
 	public Move() {
 		// TODO Auto-generated constructor stub 
 	}
 	
-	public Move(String n, int u, Type t) {
+	public Move(String n, int u, int s, Type t) {
 		this.name = n;
 		this.uses = u;
+		this.strength = s;
 		this.type = t;
 	}
 
@@ -44,6 +46,13 @@ public class Move {
 	 */
 	public void setUses(int uses) {
 		this.uses = uses;
+	}
+	
+	/**
+	 * Get move strength
+	 */
+	public int getStrength() {
+		return strength;
 	}
 	
 	

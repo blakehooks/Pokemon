@@ -21,10 +21,10 @@ public class Pokemon {
 		sprite = ss.getSprite(0, 0);
 		hp = 100;
 		moves = new Move[4];
-		moves[0] = new Move("Tackle", 20, new Type("Normal"));
-		moves[1] = new Move("Quick Attack", 20, new Type("Normal"));
-		moves[2] = new Move("Punch", 0, new Type("Normal"));
-		moves[3] = new Move("Double Kick", 0, new Type("Fighting"));
+		moves[0] = new Move("Tackle", 20, 20, new Type("Normal"));
+		moves[1] = new Move("Quick Attack", 20, 5, new Type("Normal"));
+		moves[2] = new Move("Punch", 0, 10, new Type("Normal"));
+		moves[3] = new Move("Double Kick", 0, 30, new Type("Fighting"));
 	}
 	
 	public Pokemon(String n, int x, int y, int hp) {
@@ -38,10 +38,10 @@ public class Pokemon {
 		this.sprite = ss.getSprite(x, y);
 		this.hp = hp;
 		moves = new Move[4];
-		moves[0] = new Move("Tackle", 20, new Type("Normal"));
-		moves[1] = new Move("Quick Attack", 20, new Type("Normal"));
-		moves[2] = new Move("Punch", 0, new Type("Normal"));
-		moves[3] = new Move("Double Kick", 0, new Type("Fighting"));
+		moves[0] = new Move("Tackle", 20, 20, new Type("Normal"));
+		moves[1] = new Move("Quick Attack", 20, 5, new Type("Normal"));
+		moves[2] = new Move("Punch", 0, 10, new Type("Normal"));
+		moves[3] = new Move("Double Kick", 0, 30, new Type("Fighting"));
 	}
 	/**
 	 * @return the name
