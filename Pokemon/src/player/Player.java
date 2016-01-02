@@ -44,6 +44,18 @@ public class Player {
 		sprite.draw(x, y);
 	}
 	
+	public float getX() {
+		return this.x;
+	}
+	
+	public float getY() {
+		return this.y;
+	}
+	
+	public Image getSprite() {
+		return this.sprite;
+	}
+	
 	public void move(double dX, double dY) {
 		x += dX;
 		y += dY;
