@@ -21,14 +21,6 @@ public class Player {
 	private Player(float startX, float startY) {
 		this.x = startX;
 		this.y = startY;
-		Pokemon bulb = new Pokemon();
-		party.add(bulb);
-		
-		try {
-			sprite = new Image("assets/img/pikachu.png");
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
 		
 		bag = new ItemList();
 		bag.getItems().add(new Item("Potion", 5));
@@ -52,6 +44,9 @@ public class Player {
 		return this.y;
 	}
 	
+	public void setSprite(Image sprite) {
+		this.sprite = sprite;
+	}
 	public Image getSprite() {
 		return this.sprite;
 	}
@@ -71,6 +66,13 @@ public class Player {
 	
 	public Pokemon getFirstInParty() {
 		return party.get(0);
+	}
+	
+	public void addToParty(Pokemon p) {
+		if (party.size() >= 6) {
+			throw new IllegalArgumentException("Party size is six or more!");
+		}
+		party.add(p);
 	}
 	
 	public ItemList getBag() {

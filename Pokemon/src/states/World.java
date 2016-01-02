@@ -13,6 +13,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import player.Player;
+import pokemon.Pokemon;
 
 public class World extends BasicGameState {
 	Player player = Player.getPlayer();
@@ -26,7 +27,12 @@ public class World extends BasicGameState {
 
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
-		
+		try {
+			player.setSprite(new Image("assets/img/pikachu.png"));
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
+		player.addToParty(new Pokemon());
 		Random rand = new Random();
 		SpriteSheet ss = new SpriteSheet(new Image("assets/img/sprites2.png"), 41, 41);
 		int random = rand.nextInt(11) + 1;
