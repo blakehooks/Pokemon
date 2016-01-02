@@ -26,10 +26,6 @@ public class Game extends StateBasedGame {
 		addState(new Menu());
 		addState(new NewGame());
 		addState(new World());
-		
+		addState(new Battle());		
 	}
-	
-	
-	
-
 }
