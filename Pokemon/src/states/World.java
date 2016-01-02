@@ -8,6 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.SpriteSheet;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -18,7 +19,7 @@ public class World extends BasicGameState {
 	Image wild;
 	boolean startBattle;
 	
-	public static final float SPEED_MODIFIER = .1f; 
+	public static final float SPEED_MODIFIER = .5f; 
 	
 	public World() {
 	}
@@ -40,11 +41,17 @@ public class World extends BasicGameState {
 		player.draw();
 		g.drawString("Player Name: " + player.getName(), 500, 700);
 		g.drawImage(wild, 50, 50);
-		
+		Rectangle playerBox = new Rectangle(player.getX(), player.getY(), player.getSprite().getWidth(), player.getSprite().getHeight());
+		g.drawRect(player.getX(), player.getY(), player.getSprite().getWidth(), player.getSprite().getHeight());
+		if (playerBox.intersects(new Rectangle(50, 50, 41, 41))) {
+			System.out.println("YOYOYOYO");
+		}
+		//g.fill(playerBox);
 		g.drawString(player.getBag().toString(), 300, 300);
 		
 		//Set false each time the room is created to prevet infinite loop
 		startBattle = false;
+		
 
 	}
 
