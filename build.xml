@@ -3,6 +3,13 @@
     Custom Pokemon Game
   </description>
   
+  <path id="Slick2D">
+        <pathelement location="assets/jars/jinput.jar"/>
+        <pathelement location="assets/jars/lwjgl_util.jar"/>
+        <pathelement location="assets/jars/lwjgl.jar"/>
+        <pathelement location="assets/jars/slick.jar"/>
+    </path>
+  
   <property name="src" location="src"/>
   <property name="build" location="build"/>
   <property name="dist"  location="dist"/>
