@@ -8,6 +8,7 @@ public class Pokemon {
 	private String name;
 	private Image sprite;
 	private int hp;
+	private Move[] moves;
 	
 	public Pokemon() {
 		name = "Bulbasaur";
@@ -19,6 +20,9 @@ public class Pokemon {
 		}
 		sprite = ss.getSprite(0, 0);
 		hp = 100;
+		moves = new Move[4];
+		moves[0] = new Move("Tackle", 20, new Type("Normal"));
+		moves[1] = new Move("Quick Attack", 20, new Type("Normal"));
 	}
 	
 	public Pokemon(String n, int x, int y, int hp) {
@@ -31,6 +35,7 @@ public class Pokemon {
 		}
 		this.sprite = ss.getSprite(x, y);
 		this.hp = hp;
+		moves = new Move[4];
 	}
 	/**
 	 * @return the name
@@ -67,6 +72,13 @@ public class Pokemon {
 	 */
 	public void setHp(int hp) {
 		this.hp = hp;
+	}
+	
+	/**
+	 * Get moveset
+	 */
+	public Move[] getMoves() {
+		return moves;
 	}
 	
 	
