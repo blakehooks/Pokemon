@@ -8,6 +8,20 @@
   <property name="dist"  location="dist"/>
   <property name="test"  location="test"/>
   
+  <path id="classpath.test">
+    <pathelement location="${junit}" />
+    <pathelement location="${test}" />
+    <pathelement location="${build}/main"/>
+    <pathelement location="${build}/test"/>
+  </path>
+  
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${build}"/>
+    <mkdir dir="${build}/test"/>
+    <mkdir dir="${build}/main"/> 
+  </target>
+  
   <target name="compile" depends="init" description="compile">
     <javac srcdir="${src}" destdir="${build}/main"/>
     <javac srcdir="${test}" destdir="${build}/test">
@@ -16,6 +30,8 @@
       </classpath>
     </javac>
   </target>
+  
+  
   
   <target name="dist" depends="compile">
     <mkdir dir="${dist}/lib"/>
