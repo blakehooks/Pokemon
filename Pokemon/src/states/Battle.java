@@ -54,6 +54,12 @@ public class Battle extends BasicGameState {
 		g.drawRect(0, (float) (gc.getHeight() * .79) - 1, (float) (gc.getWidth() * 0.75), (float) (gc.getHeight() * .21));
 		g.drawRect((float) (gc.getWidth() * 0.75), (float) (gc.getHeight() * .79) - 1, (float) (gc.getWidth() * .25) - 1, (float) (gc.getHeight() * .21));
 		
+		//Draw Pokemon Moves
+		g.drawString(trainerPokemon.getMoves()[0].getName(), 50, ((float) (gc.getHeight() * .79) + 10));
+		g.drawString(trainerPokemon.getMoves()[1].getName(), 250, ((float) (gc.getHeight() * .79) + 10));
+		g.drawString(trainerPokemon.getMoves()[2].getName(), 50, ((float) (gc.getHeight() * .79) + 100));
+		g.drawString(trainerPokemon.getMoves()[3].getName(), 250, ((float) (gc.getHeight() * .79) + 100));
+		
 		//Draw Wild pokemon
 		g.drawImage(wild.getSprite(), 900, 100);
 		g.drawString(wild.getName(), 900 + trainerPokemon.getSprite().getWidth(), 100);
