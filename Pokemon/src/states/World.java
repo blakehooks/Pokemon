@@ -78,13 +78,26 @@ public class World extends BasicGameState {
 	public void processInput(GameContainer gc, int delta) {
 		if (gc.getInput().isKeyDown(Input.KEY_W)) {
 			player.move(0, -delta * SPEED_MODIFIER);
+			if (player.getY() < 0) {
+				player.move(0, delta * SPEED_MODIFIER);
+			}
 		} else if (gc.getInput().isKeyDown(Input.KEY_S)) {
 			player.move(0, delta * SPEED_MODIFIER);
+			if (player.getY() > gc.getHeight() - player.getSprite().getHeight()) {
+				player.move(0, -delta * SPEED_MODIFIER);
+			}
 		} else if (gc.getInput().isKeyDown(Input.KEY_A)) {
 			player.move(-delta * SPEED_MODIFIER, 0);
+			if (player.getX() < 0) {
+				player.move(delta * SPEED_MODIFIER, 0);
+			}
 		} else if (gc.getInput().isKeyDown(Input.KEY_D)) {
 			player.move(delta * SPEED_MODIFIER, 0);
+			if (player.getX() > gc.getWidth() - player.getSprite().getWidth()) {
+				player.move(-delta * SPEED_MODIFIER, 0);
+			}
 		}
+		
 		
 		if (gc.getInput().isKeyDown(Input.KEY_B)) {
 			startBattle = true;

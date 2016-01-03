@@ -1,5 +1,6 @@
 package player;
 
+import java.awt.Window;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Image;
@@ -51,9 +52,9 @@ public class Player {
 		return this.sprite;
 	}
 	
-	public void move(double dX, double dY) {
+	public void move(double dX, double dY) {		
 		x += dX;
-		y += dY;
+		y += dY;		
 	}
 	
 	public void setName(String name) {
