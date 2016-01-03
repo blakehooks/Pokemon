@@ -1,21 +1,19 @@
 package states;
 
 
-import java.awt.Color;
 import java.util.Random;
 
-import org.lwjgl.input.Mouse;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.SpriteSheet;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+import org.newdawn.slick.state.transition.*;
 
 import player.Player;
+import pokemon.Move;
 import pokemon.Pokedex;
 import pokemon.Pokemon;
 
@@ -24,8 +22,12 @@ public class Battle extends BasicGameState {
 	Pokemon trainerPokemon;
 	Pokemon wild;
 	boolean exitBattle;
+	boolean battleWon;
 	Pokedex pokedex;
 	Random rand;
+	
+	Rectangle box1, box2, box3, box4;
+	Move move1, move2, move3, move4;
 	
 	@Override
 	public void init(GameContainer arg0, StateBasedGame arg1) throws SlickException {
@@ -41,8 +43,9 @@ public class Battle extends BasicGameState {
 		
 		trainerPokemon = p.getFirstInParty();
 		
-		//Set false each time the room is created to prevet infinite loop
+		//Set false each time the room is created to prevent infinite loop
 		exitBattle = false;
+		battleWon = false;
 	}
 
 	@Override
@@ -51,7 +54,11 @@ public class Battle extends BasicGameState {
 		
 		//Draw my pokemon
 		g.drawImage(trainerPokemon.getSprite(), 300, 400);
-		g.drawString(trainerPokemon.getName(), 300 + trainerPokemon.getSprite().getWidth(), 400);
+		g.drawString(trainerPokemon.getName() + "\nHP: " + trainerPokemon.getHp(), 300 + trainerPokemon.getSprite().getWidth(), 400);
+		
+		//Draw Wild pokemon
+		g.drawImage(wild.getSprite(), 900, 100);
+		g.drawString(wild.getName() + "\nHP: " + wild.getHp(), 900 + trainerPokemon.getSprite().getWidth(), 100);
 		
 		//Draw battle boxes
 		g.drawRect(0, (float) (gc.getHeight() * .79) - 1, (float) (gc.getWidth() * 0.75), (float) (gc.getHeight() * .20));
@@ -63,40 +70,34 @@ public class Battle extends BasicGameState {
 		
 		
 		//Move hitboxes
-		Rectangle box1 = new Rectangle(0, (float) ((gc.getHeight() * .79)),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
-		Rectangle box2 = new Rectangle((float) (gc.getWidth() * 0.375), (float) ((gc.getHeight() * .79)),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
-		Rectangle box3 = new Rectangle(0, (float) ((gc.getHeight() * .79)) + (float) (gc.getHeight() * .10),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
-		Rectangle box4 = new Rectangle((float) (gc.getWidth() * 0.375), (float) ((gc.getHeight() * .79)) + (float) (gc.getHeight() * .10),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
+		box1 = new Rectangle(0, (float) ((gc.getHeight() * .79)),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
+		box2 = new Rectangle((float) (gc.getWidth() * 0.375), (float) ((gc.getHeight() * .79)),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
+		box3 = new Rectangle(0, (float) ((gc.getHeight() * .79)) + (float) (gc.getHeight() * .10),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
+		box4 = new Rectangle((float) (gc.getWidth() * 0.375), (float) ((gc.getHeight() * .79)) + (float) (gc.getHeight() * .10),(float) (gc.getWidth() * 0.375), (float) (gc.getHeight() * .10));
 
-		String move1 = trainerPokemon.getMoves()[0].getName();
-		String move2 = trainerPokemon.getMoves()[1].getName();
-		String move3 = trainerPokemon.getMoves()[2].getName();
-		String move4 = trainerPokemon.getMoves()[3].getName();
+		move1 = trainerPokemon.getMoves()[0];
+		move2 = trainerPokemon.getMoves()[1];
+		move3 = trainerPokemon.getMoves()[2];
+		move4 = trainerPokemon.getMoves()[3];
 		
-		g.drawString(move1, box1.getCenterX() - g.getFont().getWidth(move1)/2, box1.getCenterY() - g.getFont().getHeight(move1)/2);
-		g.drawString(move2, box2.getCenterX() - g.getFont().getWidth(move2)/2, box2.getCenterY() - g.getFont().getHeight(move2)/2);
-		g.drawString(move3, box3.getCenterX() - g.getFont().getWidth(move3)/2, box3.getCenterY() - g.getFont().getHeight(move3)/2);
-		g.drawString(move4, box4.getCenterX() - g.getFont().getWidth(move4)/2, box4.getCenterY() - g.getFont().getHeight(move4)/2);
+		g.drawString(move1.getName(), box1.getCenterX() - g.getFont().getWidth(move1.getName())/2, box1.getCenterY() - g.getFont().getHeight(move1.getName())/2);
+		g.drawString(move2.getName(), box2.getCenterX() - g.getFont().getWidth(move2.getName())/2, box2.getCenterY() - g.getFont().getHeight(move2.getName())/2);
+		g.drawString(move3.getName(), box3.getCenterX() - g.getFont().getWidth(move3.getName())/2, box3.getCenterY() - g.getFont().getHeight(move3.getName())/2);
+		g.drawString(move4.getName(), box4.getCenterX() - g.getFont().getWidth(move4.getName())/2, box4.getCenterY() - g.getFont().getHeight(move4.getName())/2);
 		
-		if (box1.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
-			g.drawString("HIT 111", 125, 125);
-		}
-		if (box2.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
-			g.drawString("HIT 222", 125, 125);
-		}
-		if (box3.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
-			g.drawString("HIT 333", 125, 125);
-		}
-		if (box4.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
-			g.drawString("HIT 444", 125, 125);
-		}
-		//Draw Wild pokemon
-		g.drawImage(wild.getSprite(), 900, 100);
-		g.drawString(wild.getName(), 900 + trainerPokemon.getSprite().getWidth(), 100);
+		
+		
 		
 		//Mouse coordinates for positioning
 		g.drawString("Mouse X: " + gc.getInput().getMouseX(), 0, 100);
 		g.drawString("Mouse Y: " + gc.getInput().getMouseY(), 0, 150);
+		
+		if (battleWon) {
+			g.drawString("YOU WIN!", 500, 500);
+			if (gc.getInput().isKeyPressed(Input.KEY_ENTER)) {
+				exitBattle = true;
+			}
+		}
 		
 		
 		
@@ -105,8 +106,11 @@ public class Battle extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		processInput(gc, delta);
+		if (wild.getHp() <= 0) {
+			battleWon = true;
+		}
 		if (exitBattle) {
-			sbg.enterState(2);
+			sbg.enterState(2, new FadeOutTransition(), new FadeInTransition());
 		}
 		
 	}
@@ -120,6 +124,21 @@ public class Battle extends BasicGameState {
 	public void processInput(GameContainer gc, int delta) {		
 		if (gc.getInput().isKeyDown(Input.KEY_ESCAPE)) {
 			exitBattle = true;
+		}
+		
+		if (gc.getInput().isMousePressed(Input.MOUSE_LEFT_BUTTON) && !battleWon) {
+			if (box1.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
+				wild.takeDamange(move1.getStrength());
+			}
+			if (box2.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
+				wild.takeDamange(move2.getStrength());
+			}
+			if (box3.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
+				wild.takeDamange(move3.getStrength());
+			}
+			if (box4.contains(gc.getInput().getMouseX(), gc.getInput().getMouseY())) {
+				wild.takeDamange(move4.getStrength());
+			}
 		}
 	}
 

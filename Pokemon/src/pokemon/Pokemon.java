@@ -81,11 +81,29 @@ public class Pokemon {
 	}
 	
 	/**
+	 * Take damage from a move or other affliction
+	 * @param hp hp to remove
+	 */
+	public void takeDamange(int hp) {
+		this.hp -= hp;
+	}
+	
+	/**
+	 * Heal up
+	 * @param hp hp to add
+	 */
+	public void heal(int hp) {
+		this.hp += hp;
+	}
+	
+	/**
 	 * Get moveset
 	 */
 	public Move[] getMoves() {
 		return moves;
 	}
+	
+	
 	
 	
 
