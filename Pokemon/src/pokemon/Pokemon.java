@@ -85,7 +85,11 @@ public class Pokemon {
 	 * @param hp hp to remove
 	 */
 	public void takeDamange(int hp) {
-		this.hp -= hp;
+		if (this.hp - hp < 0) {
+			this.hp = 0;
+		} else {
+			this.hp -= hp;
+		}
 	}
 	
 	/**
